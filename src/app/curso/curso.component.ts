@@ -9,53 +9,54 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./curso.component.css']
 })
 export class CursoComponent implements OnInit {
-
-  //URL
-  url = "http://localhost/api/php/";
-
-  //Vetor de cursos
   vetor: Curso[] = [];
 
-  //Objeto da classe Curso
-  curso: Curso | null = null;
-
-
-
   //Construtor
-  constructor(private curso_servico:CursoService) {}
-
+  constructor(private cursoService:CursoService) {}
+  
   //Inicializador
   ngOnInit() {
     //Ao iniciar o sistema, deverá listar os cursos
     this.selecao();
   }
 
-    // Cadastro
-    cadastro(): void {
-    alert("Cadastro");
-    }
+  // Objeto da classe Curso
+  curso: Curso = new Curso(); // Adicionando o objeto curso da classe Curso
 
-
-    // Seleção
-    selecao() {
-      this.curso_servico.obterCursos().subscribe(
-        (res: Curso[]) => {
-          this.vetor = res;
-          
-        }
-      )
-    }
-
-    // Alterar
-    alterar(): void {
-    alert("Alterar");
-    }
-
-    // Remover
-    remover(): void {
-      alert("Remover");
+  // Seleção
+  selecao() {
+    this.cursoService.obterCursos().subscribe(
+      (res: Curso[]) => {
+        this.vetor = res;
+        console.log(this.vetor);
+      },
+      (error) => {
+        console.error('Erro ao obter cursos:', error);
       }
+    );
+    
+  }
+
+  
+
+  // Cadastro
+  cadastro(): void {
+    alert("Cadastro");
+  }
+
+  
+
+  // Alterar
+  alterar(): void {
+    alert("Alterar");
+  }
+
+  // Remover
+  remover(): void {
+    alert("Remover");
+  }
 
 }
+
 
 
